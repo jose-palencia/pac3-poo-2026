@@ -1,13 +1,23 @@
-﻿int numero;
-numero = 5;
+﻿using Project01.IntroductionCSharp.Operators.Arithmetic;
+using Project01.IntroductionCSharp.Operators.Logic;
+using Project01.IntroductionCSharp.Variables;
 
-int numero2 = 10;
+Numbers numbers = new Numbers();
 
-var numero3 = 15;
+//numbers.Variables();
 
-var saludo = "Buenas noches, nos vemos el lunes";
+Strings strings = new Strings();
 
-Console.WriteLine(numero);
-Console.WriteLine(numero2);
-Console.WriteLine(numero3); 
-Console.WriteLine(saludo);
+//strings.Variables();
+
+Calculator calculator = new Calculator();
+
+// Console.WriteLine("La suma de 2 + 2 es: " + calculator.Sum(2, 2));
+// Console.WriteLine("La resta de 4 - 2 es: " + calculator.Subtract(4, 2));
+// Console.WriteLine("La multiplicación de 4 * 2 es: " + calculator.Multiply(4, 2));
+// Console.WriteLine("La división de 11 / 3 es: " + calculator.Divide(11, 3));
+// Console.WriteLine("El valor de PI es: " + (int)calculator.Pi());
+// Console.WriteLine("El residuo de 11 / 3 es: " + calculator.Module(11, 3));
+
+Compare compare = new Compare();
+compare.Valid();
