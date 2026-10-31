@@ -1,0 +1,20 @@
+info:
+  name: Remove Employee
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: http://localhost:5133/api/employees/0401-2000-00002
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Endpoint para obtener un emempleado
+
+  El path es: `/api/employees/{dni}`

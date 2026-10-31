@@ -1,4 +1,5 @@
-﻿using Project01.IntroductionCSharp.ControlStructures;
+﻿using Project01.IntroductionCSharp.ArraysLists;
+using Project01.IntroductionCSharp.ControlStructures;
 using Project01.IntroductionCSharp.Operators.Arithmetic;
 using Project01.IntroductionCSharp.Operators.Logic;
 using Project01.IntroductionCSharp.Variables;
@@ -50,4 +51,12 @@ Loops loops = new Loops();
 // loops.ForEach();
 
 
-loops.PrintNumberPyramid(15);
+// loops.PrintNumberPyramid(15);
+
+// Arrays arrays = new Arrays();
+
+// arrays.Numbers(3);
+
+Lists lists = new Lists();
+
+lists.Products();

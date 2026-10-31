@@ -1,0 +1,23 @@
+info:
+  name: Calculator
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:5133/api/calculator
+  body:
+    type: json
+    data: |-
+      {
+        "n1": 4,
+        "n2": 2,
+        "operator": "÷"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
