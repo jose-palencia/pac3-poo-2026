@@ -35,3 +35,10 @@ namespace RRHH.API.Controllers
         public string? Operator { get; set; }
     }
 }
+
+
+/**
+
+DTO = Data Transfer Object => Objeto de transferencia de datos
+
+*/
