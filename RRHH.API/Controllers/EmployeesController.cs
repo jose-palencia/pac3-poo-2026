@@ -1,6 +1,9 @@
 
 using Microsoft.AspNetCore.Mvc;
+using RRHH.API.Dtos.Common;
+using RRHH.API.Dtos.Employees;
 using RRHH.API.Entities;
+using RRHH.API.Services.Employees;
 
 namespace RRHH.API.Controllers
 {
@@ -8,73 +11,76 @@ namespace RRHH.API.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        private readonly List<EmployeeEntity> _employees;
+        private readonly IEmployeeService _employeeService;
 
-        public EmployeesController()
+        public EmployeesController(IEmployeeService employeeService)
         {
-            _employees = new List<EmployeeEntity>();
-
-            _employees.Add(new EmployeeEntity{ Id = 1, FirstName = "Juan", LastName = "Perez", DNI = "0401-2000-00001", Gender = "M" });
-            _employees.Add(new EmployeeEntity{ Id = 2, FirstName = "Maria", LastName = "Rodriguez", DNI = "0401-2000-00002", Gender = "F" });
+            _employeeService = employeeService;
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public ActionResult<ResponseDto<PageDto<List<EmployeeDto>>>> GetAll(string searchTerm = "", int page = 1, int pageSize  = 10)
         {
-            return Ok(_employees);
+            var response = _employeeService.GetPage(searchTerm, page, pageSize);
+
+            return StatusCode(response.StatusCode, new ResponseDto<PageDto<List<EmployeeDto>>>
+            {
+                Status = response.Status,
+                Message = response.Message,
+                Data = response.Data
+            });
         }
 
-        [HttpGet("{dni}")]
-        public IActionResult GetOne(string dni)
+        [HttpGet("{id}")]
+        public ActionResult<ResponseDto<EmployeeOneDto>> GetOne(Guid id)
         {
-            // EmployeeEntity emp = new EmployeeEntity();
-
-            // foreach (var employee in _employees)
-            // {
-            //     if(employee.DNI != null && employee.DNI.Equals(dni))
-            //     {
-            //         emp = employee;
-            //     }
-            // }
-
-            //var emp = _employees.FirstOrDefault(e => e.DNI == dni);
-
-            return Ok(_employees.FirstOrDefault(e => e.DNI == dni));
+            var response = _employeeService.GetOneById(id);
+            
+            return StatusCode(response.StatusCode, new ResponseDto<EmployeeOneDto>
+            {
+                Status = response.Status,
+                Message = response.Message,
+                Data = response.Data
+            });
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] EmployeeEntity employee)
+        public ActionResult<ResponseDto<EmployeeActionResponseDto>> Post([FromBody] EmployeeCreateDto dto)
         {
-            _employees.Add(employee);
+            var response = _employeeService.Create(dto);
 
-            return Ok(new {id = employee.Id});
+            return StatusCode(response.StatusCode, new ResponseDto<EmployeeActionResponseDto>
+            {
+                Status = response.Status,
+                Message = response.Message,
+                Data = response.Data
+            });
         }
 
-        [HttpPut("{dni}")]
-        public IActionResult Put(string dni, [FromBody] EmployeeEntity employee)
+        [HttpPut("{id}")]
+        public ActionResult<ResponseDto<EmployeeActionResponseDto>> Put(Guid id, [FromBody] EmployeeEditDto dto)
         {
-            var oldEmployee = _employees.FirstOrDefault(e => e.DNI == dni);
+            var response = _employeeService.Edit(id, dto);
 
-            if(oldEmployee != null)
+            return StatusCode(response.StatusCode, new ResponseDto<EmployeeActionResponseDto>
             {
-                _employees.Remove(oldEmployee);
-                _employees.Add(employee);
-            }
-
-            return Ok(_employees);
+                Status = response.Status,
+                Message = response.Message,
+                Data = response.Data
+            });
         }
 
-        [HttpDelete("{dni}")]
-        public IActionResult Delete(string dni)
+        [HttpDelete("{id}")]
+        public ActionResult<ResponseDto<EmployeeActionResponseDto>> Delete(Guid id)
         {
-            var oldEmployee = _employees.FirstOrDefault(e => e.DNI == dni);
+            var response = _employeeService.Delete(id);
 
-            if(oldEmployee != null)
+            return StatusCode(response.StatusCode, new ResponseDto<EmployeeActionResponseDto>
             {
-                _employees.Remove(oldEmployee);
-            }
-
-            return Ok(_employees);
+                Status = response.Status,
+                Message = response.Message,
+                Data = response.Data
+            });
         }
     }
 }

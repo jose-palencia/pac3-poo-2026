@@ -1,6 +1,6 @@
 namespace RRHH.API.Dtos.Employees
 {
-    public class EmployeeEditDto
+    public class EmployeeEditDto : EmployeeCreateDto
     {
         
     }
